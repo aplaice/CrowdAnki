@@ -18,17 +18,17 @@ jobs:
       run: |
         python3 -m pip install --upgrade pipenv
 
-    - name: Write requirements.txt
+    - name: Write dulwich to requirements.txt
       shell: bash
       run: |
-        pipenv lock -r | sed -E 's/(^dulwich==.+$)/\1 --global-option=--pure/' > requirements.txt
+        pipenv lock -r | sed -nE 's/(^dulwich==.+$)/\1 --global-option=--pure/p' > requirements.txt
 
-    - name: Install dependencies (incl. pure dulwich)
+    - name: Install pure dulwich from requirements
       shell: bash
       run: |
         pipenv run pip install -r requirements.txt
 
-    - name: Install dev dependencies
+    - name: Install all other dependencies
       shell: bash
       run: |
         pipenv install --dev
