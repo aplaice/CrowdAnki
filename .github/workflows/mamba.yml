@@ -14,13 +14,18 @@ jobs:
       with:
         python-version: 3.7
 
-    # TODO IMPORTANT This will need to be changed (pure dulwich!)
+    - name: Upgrade pip
+      run: |
+        python3 -m pip install --upgrade pipenv
+
+    - name: Install pure dulwich
+      shell: bash
+      run: |
+        pipenv run pip install -r <(pipenv lock -r | sed -En 's/(^dulwich==.+$)/\1 --global-option=--pure/p')
+
     - name: Install dependencies
       shell: bash
       run: |
-        python3 -m pip install --upgrade pipenv
-        pipenv run pip install -r <(pipenv lock -r | sed -En 's/(^dulwich==.+$)/\1 --global-option=--pure/p')
-        sleep 10
         pipenv install --dev
 
     # TODO Run tests separately?
