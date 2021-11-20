@@ -23,8 +23,7 @@ jobs:
       run: |
         pipenv lock -r | sed -nE 's/(^dulwich==.+$)/\1 --global-option=--pure/p' > requirements.txt
 
-    - name: Install pure dulwich from requirements
-      shell: bash
+    - name: Install pure dulwich from requirements.txt
       run: |
         pipenv run pip install -r requirements.txt
 
@@ -33,7 +32,7 @@ jobs:
       run: |
         pipenv install --dev
 
-    # TODO Run tests separately?
+    # TODO Run each test separately?
     - name: Run tests
       run: |
         pipenv run mamba ./
