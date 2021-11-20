@@ -19,7 +19,9 @@ jobs:
       shell: bash
       run: |
         python3 -m pip install --upgrade pipenv
-        pipenv run pip install -r <(pipenv lock -r | sed -En 's/(^dulwich==.+$)/\1 --global-option=--pure/p') && pipenv install --dev
+        pipenv run pip install -r <(pipenv lock -r | sed -En 's/(^dulwich==.+$)/\1 --global-option=--pure/p')
+        sleep 10
+        pipenv install --dev
 
     # TODO Run tests separately?
     - name: Run tests
