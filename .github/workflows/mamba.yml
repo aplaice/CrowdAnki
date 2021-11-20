@@ -18,18 +18,17 @@ jobs:
       run: |
         python3 -m pip install --upgrade pipenv
 
-    - name: Initialise pipenv
-      # This could be any pipenv command, but this might be useful for
-      # debugging.
-      run: |
-        pipenv lock -r
-
-    - name: Install pure dulwich
+    - name: Write requirements.txt
       shell: bash
       run: |
-        pipenv run pip install -r <(pipenv lock -r | sed -En 's/(^dulwich==.+$)/\1 --global-option=--pure/p')
+        pipenv lock -r | sed -E 's/(^dulwich==.+$)/\1 --global-option=--pure/' > requirements.txt
 
-    - name: Install dependencies
+    - name: Install dependencies (incl. pure dulwich)
+      shell: bash
+      run: |
+        pipenv run pip install -r requirements.txt
+
+    - name: Install dev dependencies
       shell: bash
       run: |
         pipenv install --dev
