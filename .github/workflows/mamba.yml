@@ -16,6 +16,7 @@ jobs:
 
     # TODO IMPORTANT This will need to be changed (pure dulwich!)
     - name: Install dependencies
+      shell: bash
       run: |
         python3 -m pip install --upgrade pipenv
         pipenv run pip install -r <(pipenv lock -r | sed -En 's/(^dulwich==.+$)/\1 --global-option=--pure/p')
