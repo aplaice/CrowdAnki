@@ -18,6 +18,12 @@ jobs:
       run: |
         python3 -m pip install --upgrade pipenv
 
+    - name: Initialise pipenv
+      # This could be any pipenv command, but this might be useful for
+      # debugging.
+      run: |
+        pipenv lock -r
+
     - name: Install pure dulwich
       shell: bash
       run: |
