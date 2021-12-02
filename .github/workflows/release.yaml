@@ -2,7 +2,7 @@ name: Release beta
 
 on:
   push:
-    # tags: ['v[0-9.]+-beta[0-9.]+']
+    # TODO s/experiment/beta/
     tags:
       - 'v[0-9]+.[0-9]+-experiment*'
       - 'v[0-9]+.[0-9]+.[0-9]+-experiment*'
@@ -15,50 +15,20 @@ jobs:
     steps:
     - uses: actions/checkout@v2
 
-    # - name: Set up Python 3.7
-    #   uses: actions/setup-python@v2
-    #   with:
-    #     python-version: 3.7
+    - name: Set up Python 3.7
+      uses: actions/setup-python@v2
+      with:
+        python-version: 3.7
 
-    # - name: Upgrade pip
-    #   run: |
-    #     python3 -m pip install --upgrade pipenv
+    - name: Upgrade pip
+      run: |
+        python3 -m pip install --upgrade pipenv
 
-    # # Pipenv doesn't support specifying global options.  See:
-    # #
-    # # https://github.com/pypa/pipenv/issues/2208
-    # #
-    # # We want to make sure that we're testing pure python dulwich,
-    # # since that's what the users will be using.
-    # #
-    # # We only want to install dulwich via the `-r requirements.txt`
-    # # method, since the presence of any non-default option causes pip
-    # # to avoid using wheels for all the other dependencies, which
-    # # slows down the build considerably (and breaks it on Windows).  I
-    # # don't think that any of our other current dependencies might
-    # # potentially use binary wheels, so in this case using wheels is
-    # # probably safe.  (Besides, AFAIK we didn't have any issues
-    # # specifically caused by a dependency other than dulwich (see
-    # # #138, so testing the other dependencies isn't a focus.)
-    # #
-    # # Unfortunately, I didn't manage to get process substitution
-    # # (`<()`) to work, within GitHub actions, so I'm writing
-    # # requirements.txt to a file.
-    # - name: Write dulwich version to requirements.txt
-    #   shell: bash
-    #   run: |
-    #     pipenv lock -r | sed -nE 's/(^dulwich==.+$)/\1 --global-option=--pure/p' > requirements.txt
+    - name: Install PyQt5 for pyuic5
+      shell: bash
+      run: |
+        python3 -m pip install PyQt5
 
-    # - name: Install pure dulwich from requirements.txt
-    #   run: |
-    #     pipenv run pip install -r requirements.txt
-
-    # - name: Install all other dependencies
-    #   shell: bash
-    #   run: |
-    #     pipenv install --dev
-
-    # # TODO Run each test separately?  (See: #145.)
-    # - name: Run tests
-    #   run: |
-    #     pipenv run mamba ./
+    - name: Package plugin
+      run: |
+        ./package_plugin.sh
