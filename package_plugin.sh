@@ -2,9 +2,6 @@
 
 ./generate_ui.sh
 
-echo $pythonLocation
-echo $LD_LIBRARY_PATH
-
 ./fetch_dependencies.sh
 cd crowd_anki
 zip -r ../crowd_anki_$(date -u +"%Y%m%d").zip ./ -x "*__pycache__*" -x meta.json
