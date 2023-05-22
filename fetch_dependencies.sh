@@ -1,7 +1,8 @@
 #!/usr/bin/env bash
 set -xe
 
-
+echo $SHELL
+pipenv run echo $SHELL
 pipenv run pip install --upgrade --no-binary :all: -r <(pipenv requirements | sed -E "s/(^dulwich==.+$)/\1 --global-option=--pure/")  --target crowd_anki/dist
 
 # check for linux shared object files.  this won't work on windows and might not work on macos.
