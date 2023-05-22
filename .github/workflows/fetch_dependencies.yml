@@ -4,8 +4,8 @@ on:
   pull_request:
     # paths: [Pipfile, Pipfile.lock]
   push:
-    branches: [master]
-    paths: [Pipfile, Pipfile.lock]
+    # branches: [master]
+    # paths: [Pipfile, Pipfile.lock]
 
 jobs:
   fetch_dependencies:
