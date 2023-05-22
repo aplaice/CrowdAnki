@@ -30,6 +30,7 @@ jobs:
     - name: Run fetch_dependencies.sh
       run: |
         ./fetch_dependencies.sh
+      shell: bash
 
     - name: Upload crowd_anki dist artifact
       uses: actions/upload-artifact@v3

@@ -1,10 +1,10 @@
 #!/usr/bin/env bash
 set -xe
 
-cat <(echo hi)
-pip install --upgrade --no-binary :all: -r <(echo dulwich)  --target crowd_anki/dist
 
-# Check for Linux shared object files.  This won't work on Windows and might not work on MacOS.
+pipenv run pip install --upgrade --no-binary :all: -r <(pipenv requirements | sed -E "s/(^dulwich==.+$)/\1 --global-option=--pure/")  --target crowd_anki/dist
+
+# check for linux shared object files.  this won't work on windows and might not work on macos.
 if [ ! "$(find crowd_anki/dist/ -name '*.so')" == "" ]
 then
     echo "Found compiled .so file.  Build is not pure python!"
