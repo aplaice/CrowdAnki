@@ -1,7 +1,8 @@
 #!/usr/bin/env bash
 set -xe
 
-pipenv run ./a.sh <(echo hi)
+ls -lh /dev/fd/
+pipenv run ./a.sh <(echo hi) $$
 # cat <(echo hi)
 # echo hi | pipenv run sed 's/h/g/'
 # pipenv run cat <(echo hi)
