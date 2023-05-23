@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+set -xe
 
 ls -lh /proc/$2/fd/
 ls -lh /dev/fd/
