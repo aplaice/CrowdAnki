@@ -2,7 +2,7 @@ name: Mamba tests
 
 on:
   push:
-    branches: [master]
+    branches: [master, apt_get_update]
   pull_request:
 
 jobs:
